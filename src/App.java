@@ -1,46 +1,35 @@
-<<<<<<< HEAD
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
-import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws Exception {
         // Conecting IMBD-API
-        String url = "https://imdb-api.com/en/API/Top250TVs/12345678";
-        URI address = URI.create(url);
-        var client = HttpClient.newHttpClient();
-        var request = HttpRequest.newBuilder(address).GET().build();
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        String body = response.body();
+        // String url = "https://imdb-api.com/en/API/Top250TVs/k_yourkey";
 
-        // Extracting db
-        var parser = new JsonParser();
-        List<Map<String, String>> seriesList = parser.parse(body);
-        System.out.println(seriesList.size());
-        System.out.println(seriesList.get(0));
+        // Conecting Nasa-API
+        String url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&start_date=2022-07-22&end_date=2022-07-24";
+
+        var client = new ClientHttp();
+        String json = client.searchData(url);
 
         // Manipulating and displaying db
+        // ContentExtractor extractor = new ImdbContentExtractor();
+        ContentExtractor extractor = new NasaContentExtractor();
+        List<Content> contents = extractor.extractContents(json);
+
         var generate = new StickersGenerator();
-        for (Map<String,String> serie : seriesList) {
-            String imageUrl = serie.get("image");
-            String title = serie.get("title");
-            InputStream inputStream = new URL(imageUrl).openStream();
-            String fileName = title + ".png";
+        // for (Map<String,String> content : contentList()   // To get all contentList (250 top series)
+        for (int i = 0; i < 3; i++) {                      // To get just 3 contents of the contentList 
+            Content content = contents.get(i);  
+
+            InputStream inputStream = new URL(content.getImageUrl()).openStream();
+            String fileName = "exit/" + content.getTitle() + ".png";
             
             generate.create(inputStream, fileName);
     
-            System.out.println(title);
-            System.out.println(serie.get("imDbRating"));
+            System.out.println(content.getTitle());
             System.out.println();
         }
     }
 }
-=======
-
->>>>>>> 8eee7f72a46314ed2dc4cc74e0e34632a3052e91
