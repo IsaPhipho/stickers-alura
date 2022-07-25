@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // HTTP conection to get db from IMDB APPI
+        // Conecting IMBD-API
         String url = "https://imdb-api.com/en/API/Top250TVs/k_sc0cjtqb";
         URI address = URI.create(url);
         var client = HttpClient.newHttpClient();
@@ -29,5 +29,6 @@ public class App {
             System.out.println(serie.get("imDbRating"));
             System.out.println();
         }
+
     }
 }
