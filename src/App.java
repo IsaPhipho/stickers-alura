@@ -9,7 +9,7 @@ import java.util.Map;
 public class App {
     public static void main(String[] args) throws Exception {
         // Conecting IMBD-API
-        String url = "https://imdb-api.com/en/API/Top250TVs/k_sc0cjtqb";
+        String url = "https://imdb-api.com/en/API/Top250TVs/12345678";
         URI address = URI.create(url);
         var client = HttpClient.newHttpClient();
         var request = HttpRequest.newBuilder(address).GET().build();
