@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
@@ -40,3 +41,6 @@ public class App {
         }
     }
 }
+=======
+
+>>>>>>> 8eee7f72a46314ed2dc4cc74e0e34632a3052e91
