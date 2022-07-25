@@ -4,19 +4,15 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
 import java.io.File;
-// import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
 public class StickersGenerator {
   
-  public void create() throws IOException {
+  public void create(InputStream inputStream, String fileName) throws IOException {
     // Reading image
-    // InputStream inputStream = new FileInputStream(new File("images/image_cover.jpg"));
-    InputStream inputStream = new URL("https://m.media-amazon.com/images/M/MV5BZmJjM2YzOWEtOTYxYi00YjhkLTliMzgtMTA2MTc0NDQ1MDM4XkEyXkFqcGdeQXVyODY5OTk4MA@@.jpg").openStream();
     BufferedImage originalImage = ImageIO.read(inputStream);
 
     // Create new image in memory (transparent and new size)
@@ -36,12 +32,7 @@ public class StickersGenerator {
     graphics.drawString("MAGNIFIC", 250, newhHight - 75);
 
     // Writing new image in a file
-    ImageIO.write(newImage, "png", new File("exit/sticker.png"));
+    ImageIO.write(newImage, "png", new File(fileName));
 
-  }
-
-  public static void main(String[] args) throws IOException {
-    var generator = new StickersGenerator();
-    generator.create();
   }
 }

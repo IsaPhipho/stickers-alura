@@ -1,4 +1,6 @@
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -23,12 +25,18 @@ public class App {
         System.out.println(seriesList.get(0));
 
         // Manipulating and displaying db
+        var generate = new StickersGenerator();
         for (Map<String,String> serie : seriesList) {
-            System.out.println(serie.get("title"));
-            System.out.println(serie.get("image"));
+            String imageUrl = serie.get("image");
+            String title = serie.get("title");
+            InputStream inputStream = new URL(imageUrl).openStream();
+            String fileName = title + ".png";
+            
+            generate.create(inputStream, fileName);
+    
+            System.out.println(title);
             System.out.println(serie.get("imDbRating"));
             System.out.println();
         }
-
     }
 }
